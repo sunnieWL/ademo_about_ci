@@ -1,5 +1,6 @@
-import { renderHook, act } from '@testing-library/react-hooks';
-import useCounter from './useCounter';
+import { renderHook, act } from '@testing-library/react';
+import useCounter from '../src/hooks/features/homepage/useCounter';
+import { describe, it, expect } from 'vitest';
 
 describe('useCounter', () => {
   it('should initialize with count = 0 and val = 1', () => {
@@ -10,6 +11,7 @@ describe('useCounter', () => {
 
   it('should increment count by val', () => {
     const { result } = renderHook(() => useCounter());
+    
     act(() => {
       result.current.increment();
     });
@@ -17,6 +19,10 @@ describe('useCounter', () => {
 
     act(() => {
       result.current.setVal(5);
+    });
+    expect(result.current.val).toBe(5);
+    
+    act(() => {
       result.current.increment();
     });
     expect(result.current.count).toBe(6);
